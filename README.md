@@ -14,7 +14,7 @@ This project demonstrates the use of NIR spectroscopy combined with machine lear
 - **Mean Absolute Error: 2.38%** water content
 - **Accuracy: 90.91%** of predictions within ±5%
 
-## 📊 Dataset
+##  Dataset
 
 - **Source:** NIR Spectrometer (NQ5500316), University of Bonn
 - **Measurement Date:** March 24, 2023
