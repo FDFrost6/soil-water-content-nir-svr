@@ -1,0 +1,63 @@
+# Python virtual environment
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Distribution / packaging
+.eggs/
+*.egg-info/
+dist/
+build/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
+
+# Large intermediate files (keep only essential ones)
+convert_to_csv.py
+examine_columns.py
+evaluate_model.py
+diagnose_validation.py
+convert_to_csv_complete.py
+
+# Old visualizations (superseded by final versions)
+loocv_model_evaluation.png
+svm_model_evaluation.png
+metrics_comparison.png
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Other data formats (keeping only xlsx and csv)
+*.ods
+cleaned data.ods
+
+# CAD and design files (not needed for ML project)
+2017 Penetrometer/
+
+# Obsolete data files
+soil_spectral_data_clean.csv
+data.csv
