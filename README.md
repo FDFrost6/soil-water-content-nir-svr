@@ -6,7 +6,7 @@
 
 Machine learning model to predict soil water content (0-40%) from near-infrared (NIR) spectral reflectance measurements using Support Vector Regression (SVM).
 
-## 🎯 Project Overview
+## Project Overview
 
 This project demonstrates the use of NIR spectroscopy combined with machine learning for rapid, non-destructive soil moisture assessment. The trained model achieves:
 
@@ -23,7 +23,7 @@ This project demonstrates the use of NIR spectroscopy combined with machine lear
 - **Spectral Range:** 189.85 - 2514.35 nm (~2,557 wavelengths)
 - **Replicates:** 8 measurements per water content level
 
-## 🗂️ Repository Structure
+## Repository Structure
 
 ```
 .
@@ -50,7 +50,7 @@ This project demonstrates the use of NIR spectroscopy combined with machine lear
 └── .gitignore                                   # Git ignore rules
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone the Repository
 
@@ -94,7 +94,7 @@ This will:
 python src/generate_accuracy_plot.py
 ```
 
-## 📈 Results
+## Results
 
 ### Model Performance
 
@@ -107,12 +107,12 @@ python src/generate_accuracy_plot.py
 
 ### Key Findings
 
-1. ✅ **Excellent predictive performance** with R² > 0.93 on test set
-2. ✅ **Good generalization** - minimal overfitting (train-test R² difference = 0.03)
-3. ✅ **Practical accuracy** - 91% of predictions within ±5% tolerance
-4. ✅ **Robust model** - consistent performance across train/val/test sets
+1.  **Excellent predictive performance** with R² > 0.93 on test set
+2.  **Good generalization** - minimal overfitting (train-test R² difference = 0.03)
+3.  **Practical accuracy** - 91% of predictions within ±5% tolerance
+4.  **Robust model** - consistent performance across train/val/test sets
 
-## 🔬 Methodology
+##  Methodology
 
 ### Data Preprocessing
 - Extracted individual spectral measurements from Excel sheets
@@ -130,7 +130,7 @@ python src/generate_accuracy_plot.py
 - Multiple metrics: R², RMSE, MAE, accuracy at tolerance levels
 - Residual analysis for error patterns
 
-## 📊 Visualizations
+##  Visualizations
 
 ### 1. Performance Plots
 ![Model Performance](results/svm_model_individual_measurements.png)
@@ -144,7 +144,7 @@ Six-panel visualization showing:
 
 Bar chart comparing accuracies at ±5%, ±2%, ±1% tolerance levels.
 
-## 🛠️ Usage Example
+##  Usage Example
 
 ### Load and Use the Trained Model
 
@@ -170,11 +170,11 @@ water_content = model.predict(X_new_scaled)
 print(f"Predicted water content: {water_content[0]:.2f}%")
 ```
 
-## 📝 Project Report
+##  Project Report
 
 For detailed methodology, analysis, and discussion, see [PROJECT_REPORT.md](PROJECT_REPORT.md).
 
-## 🔄 Next Steps
+##  Next Steps
 
 Potential improvements and extensions:
 
@@ -194,24 +194,24 @@ Potential improvements and extensions:
    - If nitrogen content labels become available, build multi-output model
    - Analyze spectral bands sensitive to specific soil properties
 
-## 📚 References
+##  References
 
 - NIR spectroscopy for soil analysis
 - Support Vector Regression for spectral data
 - Scikit-learn documentation
 
-## 👥 Contributors
+##  Contributors
 
 - Nelson Pinheiro
 - University of Bonn
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
-- University of Bonn for providing the spectroscopy equipment
+- University of Bonn for providing the spectroscopy data
 - Data collection: March 24, 2023
 
 ---
