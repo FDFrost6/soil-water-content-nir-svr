@@ -1,0 +1,23 @@
+FEATURE ENGINEERING COMPARISON REPORT
+======================================================================
+Date: 2026-02-23 17:22:57
+
+VARIANTS TESTED:
+----------------------------------------------------------------------
+1. Baseline (512 features)
+2. Spectral + Water (513)
+3. PCA-50 (50 features)
+4. PCA-50 + Water (51)
+
+RESULTS SUMMARY:
+----------------------------------------------------------------------
+Variant                        Val Bal Acc     Test Bal Acc   
+Baseline (512 features)         80.22%          88.08%
+Spectral + Water (513)          80.22%          90.00%
+PCA-50 (50 features)            89.90%          98.08%
+PCA-50 + Water (51)             97.92%          98.08%
+
+BEST VARIANT: PCA-50 + Water (51)
+  Val Balanced Accuracy  : 97.92%
+  Test Balanced Accuracy : 98.08%
+  Improvement over baseline: +17.69% (val), +10.00% (test)

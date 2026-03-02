@@ -377,4 +377,88 @@ MAPE = 100/n Σ|（yᵢ - ŷᵢ)/yᵢ|
 
 ---
 
+## 5. Extension: Water + Nitrogen Dual-Model (February 2026)
+
+### 5.1 Motivation
+
+Following the successful water content model, new measurements were collected with an additional variable: nitrogen fertiliser levels (0 / 75 / 150 / 300 mg N kg⁻¹, NH₄NO₃ source). The primary goal was to determine whether NIR spectroscopy can detect nitrogen application steps.
+
+### 5.2 New Dataset
+
+| Property | Value |
+|----------|-------|
+| Spectrometer | NQ5500316 (NIRQuest) |
+| Spectral range | 898–2514 nm (512 pixels) |
+| Water levels | 0, 5, 15, 25, 35 % |
+| Nitrogen levels | 0, 75, 150, 300 mg N kg⁻¹ |
+| Conditions | 17 (W×N) |
+| Replicates | ≥ 20 per condition |
+| Total measurements | 343 |
+| Background soil N | ~0.06% |
+
+Two filename variants were encountered and handled (`soil_rep_*` and `soil_NN_rep_*`).
+
+### 5.3 Methods
+
+**Ingestion (`src/ingest_records.py`):**  
+All 343 NIRQuest text files were parsed (0 errors). Long-format CSV written to `data/soil_spectral_data_records.csv` (175,616 rows). Six data quality checks all passed.
+
+**Modelling (`src/train_water_nitrogen.py`):**
+- Feature matrix: 343 samples × 512 wavelengths
+- Stratified 70/15/15 split on (water × nitrogen) joint label
+- StandardScaler normalisation
+- Water: SVR (RBF, C=100, ε=0.1)
+- Nitrogen: RandomForest (300 trees, balanced weights) vs SVC (RBF, C=10); best by val balanced accuracy
+
+### 5.4 Results
+
+#### Water Content Regression (SVR)
+
+| Metric | Train | Val | Test |
+|--------|-------|-----|------|
+| R² | 0.936 | 0.992 | **0.844** |
+| RMSE (%) | 3.00 | 1.07 | **4.71** |
+| MAE (%) | 0.76 | 0.80 | **1.55** |
+| Acc ±5% | 99.2% | 100.0% | **92.3%** |
+
+The validation R² is notably higher than test, suggesting moderate variance in test samples at the distribution boundaries. Overall ±5% accuracy of 92% is practically useful.
+
+#### Nitrogen Classification (RandomForest, test set)
+
+| Class (mg/kg) | Precision | Recall | F1 |
+|---------------|-----------|--------|-----|
+| 0 | 0.88 | 0.93 | 0.90 |
+| 75 | 0.83 | 0.83 | 0.83 |
+| 150 | 0.91 | 0.83 | 0.87 |
+| 300 | 0.92 | 0.92 | 0.92 |
+| **Macro avg** | **0.89** | **0.88** | **0.88** |
+
+**Balanced accuracy: 88.1%** — exceeds the 70% success criterion.
+
+Top discriminating wavelengths (RF importance): 2492.7 nm, 2474.2 nm, 2427.7 nm, 2452.5 nm — predominantly in the 2400–2510 nm region, consistent with N–H and C–N absorption bands.
+
+SVC (RBF, C=10) achieved 81.4% balanced accuracy on the test set — functional but lower than RF.
+
+### 5.5 Success Criteria Assessment
+
+| Criterion | Target | Result | Status |
+|-----------|--------|--------|--------|
+| All files parsed | 0 errors | 0 errors (343/343) | ✓ |
+| Water model R² | ≥ 0.85 | 0.844 | ⚠ close |
+| Nitrogen balanced acc | ≥ 0.70 | 88.1% | ✓ |
+| Evaluation plots | generated | 4 plots saved | ✓ |
+| README updated | — | updated | ✓ |
+| Tests pass | all pass | 50/50 | ✓ |
+
+The water R² of 0.844 is just below the 0.85 target but the ±5% accuracy of 92.3% indicates practical utility. The gap between validation (0.992) and test (0.844) R² suggests that some additional regularisation or spectral preprocessing (e.g. Savitzky-Golay derivatives) could close this gap.
+
+### 5.6 Conclusion
+
+**Can NIR spectroscopy detect nitrogen application steps?**  
+**YES** — The RandomForest classifier achieves 88% balanced accuracy across all four nitrogen classes (0 / 75 / 150 / 300 mg N kg⁻¹) on unseen test data. All four classes are reliably distinguished (minimum per-class F1 = 0.83).
+
+Water content prediction on the new NIRQuest dataset reaches R²=0.84 and 92% accuracy within ±5%, demonstrating that both tasks are feasible with the same 512-pixel NIR spectrum.
+
+---
+
 **End of Report**

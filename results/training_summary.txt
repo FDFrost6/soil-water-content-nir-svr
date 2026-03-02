@@ -1,0 +1,15 @@
+WATER + NITROGEN MODEL TRAINING SUMMARY
+Date: 2026-02-23 15:13:39
+
+Water SVR  — Test R²=0.8437, RMSE=4.711%, MAE=1.550%
+            Acc ±5%=92.3%  → MODERATE
+
+Nitrogen (RandomForest) — Test Balanced Acc=88.08%
+            → STEP DETECTION: YES ✓
+
+Confusion matrix (test):
+      0     75    150    300
+  0   14      0      1      0
+ 75    1     10      0      1
+150    0      2     10      0
+300    1      0      0     12
