@@ -53,6 +53,10 @@ loocv_model_evaluation.png
 svm_model_evaluation.png
 metrics_comparison.png
 
+# Generated intermediate files
+*.html
+!*.html.bak
+
 # Backup files
 *.bak
 *.backup
