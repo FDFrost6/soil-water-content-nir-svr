@@ -94,7 +94,6 @@ This project demonstrates the use of NIR spectroscopy combined with machine lear
 │   └── test_protection_layer.py                # NEW: safety layer unit tests
 │
 ├── main.py                                      # NEW: Unified CLI entry point
-├── USAGE.md                                     # NEW: Command-line usage guide
 ├── PROJECT_REPORT.md                            # Detailed project report
 ├── PRESENTATION_SLIDES.md                       # Google Slides deck
 ├── README.md                                    # This file
@@ -156,7 +155,41 @@ python main.py --help
 python main.py <command> --help
 ```
 
-**See [USAGE.md](USAGE.md) for complete CLI documentation**
+#### All Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `ingest` | Parse NIRQuest .txt files → CSV |
+| `train` | Train water SVR + nitrogen RF |
+| `evaluate` | Generate 6 evaluation plots |
+| `predict` | Make predictions with safety checks |
+| `compare` | Compare feature engineering (4 variants) |
+| `pca-sweep` | Analyze PCA components (plot9-11) |
+| `test-seeds` | Cross-split validation (5 seeds) |
+| `test` | Run pytest unit tests |
+| `full` | Complete pipeline (ingest→train→eval) |
+
+#### Advanced Usage Examples
+
+```bash
+# Skip steps already completed
+python main.py full --skip-ingest  # Use existing CSV
+python main.py full --skip-train   # Use existing models
+
+# Quick mode (skip re-training)
+python main.py train --quick
+
+# Custom prediction confidence
+python main.py predict --spectrum data.csv --confidence 0.70
+
+# Tests with coverage
+python main.py test --coverage
+```
+
+**Troubleshooting:**
+- **ModuleNotFoundError:** Activate venv with `source venv/bin/activate`
+- **File not found:** Make sure you're in project root directory
+- **Models missing:** Run `python main.py train` or `python main.py full`
 
 #### Alternative: Manual Step-by-Step
 
